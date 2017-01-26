@@ -1,0 +1,30 @@
+---
+title: "Assignment: R Markdown and Leaflet"
+author: "Author: Poo, L. S."
+date: "Date: `r format(Sys.Date(), '%d %B %Y')`"
+output: 
+  html_document: 
+    keep_md: TRUE
+---
+
+The *leaflet* package is loaded for creating interactive maps. We need to set the seed. This is to improve the reproducibility of the code.
+
+```{r}
+library(leaflet)
+set.seed(12345)
+```
+
+Here is the code to create an interactive map using *leaflet* with 500 random markers.
+
+```{r message=FALSE, fig.align="center", fig.cap="***Above is the interactive map created with 500 random markers.***"}
+df <- data.frame(label = as.character(1:500),
+                 lat = runif(500, min = 34.65, max = 34.75),
+                 lng = runif(500, min = 135.45, max = 135.55),
+                 stringsAsFactors = FALSE)
+
+df %>%
+    leaflet(width = "100%") %>%
+    addTiles() %>%
+    addMarkers(clusterOptions = markerClusterOptions(),
+               popup = df$label)
+```

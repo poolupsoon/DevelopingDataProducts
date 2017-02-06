@@ -1,0 +1,79 @@
+---
+title: "Assignment: R Markdown Presentation & Plotly"
+author: "Author: Poo, L. S."
+date: "Date: `r format(Sys.Date(), '%d %B %Y')`"
+output: 
+  ioslides_presentation: 
+    keep_md: TRUE
+---
+
+## Loading the Plotly Package
+
+The `plotly` package is loaded for creating interactive plots. The `quantmod` package is loaded. The `quantmod` package (Quantitative Financial Modelling and Trading Framework for R) is designed to assist the quantitative trader in the development, testing, and deployment of statistically based trading models.
+
+```{r message=FALSE}
+library(plotly)
+library(quantmod)
+```
+
+## Reading the Data
+
+The data is sourced using the `quantmod` package. The data contains the stock prices of several NASDAQ-listed companies from the year 2010 to 2016.
+
+```{r message=FALSE, results="hide"}
+fdate <- as.Date("01/01/10",
+                 format = "%d/%m/%y")
+tdate <- as.Date("31/12/16",
+                 format = "%d/%m/%y")
+
+getSymbols(c("AAPL", "MSFT", "FB"),
+           src = "google",
+           from = fdate,
+           to = tdate)
+```
+
+## Processing the Data
+
+The dates, symbols, and prices are extracted and grouped in a single data frame.
+
+```{r}
+mydate <- c(index(AAPL), index(MSFT), index(FB))
+
+AAPL <- data.frame(mysymbol = "Apple Inc. (AAPL)",
+                   myprice = as.numeric(AAPL[,1]))
+MSFT <- data.frame(mysymbol = "Microsoft Corporation (MSFT)",
+                   myprice = as.numeric(MSFT[,1]))
+FB <- data.frame(mysymbol = "Facebook, Inc. (FB)",
+                 myprice = as.numeric(FB[,1]))
+
+stocks <- rbind(AAPL, MSFT, FB)
+stocks <- cbind(mydate, stocks)
+```
+
+## Creating an Interactive Plot with Plotly
+
+Here is the code to create an interactive plot using `plot_ly()`.
+
+```{r eval=FALSE}
+plot_ly(x = stocks$mydate,
+        y = stocks$myprice,
+        color = stocks$mysymbol,
+        type = "scatter",
+        mode = "lines") %>%
+    layout(title = "Stock Prices from Year 2010 to 2016",
+         xaxis = list(title = "Date"),
+         yaxis = list(title = "Stock Price (in USD)"))
+```
+
+## Creating an Interactive Plot with Plotly
+
+```{r echo=FALSE, warning=FALSE, fig.width=8}
+plot_ly(x = stocks$mydate,
+        y = stocks$myprice,
+        color = stocks$mysymbol,
+        type = "scatter",
+        mode = "lines") %>%
+    layout(title = "Stock Prices from Year 2010 to 2016",
+         xaxis = list(title = "Date"),
+         yaxis = list(title = "Stock Price (in USD)"))
+```

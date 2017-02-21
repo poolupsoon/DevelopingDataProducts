@@ -9,7 +9,8 @@ Forecasting Precious Metal Price Trend with Exponential Smoothing (ETS)
 1. Precious metals offer insights into economic health and are often viewed as a safe haven during times of economic turmoil.
 2. The objective of this Shiny Web App is to forecast precious metal price trend for the next 24 months with exponential smoothing (ETS).
 3. The data is sourced from [**OANDA**](https://www.oanda.com).
-4. *DISCLAIMER: This Shiny Web App is for educational purposes only. The data and forecast accuracies are not guaranteed.*
+4. The ui.R and server.R files are here: [https://github.com/poolupsoon/DevelopingDataProducts/tree/master/ShinyApplicationAndReproduciblePitch](https://github.com/poolupsoon/DevelopingDataProducts/tree/master/ShinyApplicationAndReproduciblePitch)
+5. The Shiny Web App is here: [https://poolupsoon.shinyapps.io/shinyapplicationandreproduciblepitch/](https://poolupsoon.shinyapps.io/shinyapplicationandreproduciblepitch/)
 
 Getting and Processing Data
 ========================================================
